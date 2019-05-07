@@ -270,11 +270,16 @@ class WeatherForecast extends q.DesktopApp {
         }
       }
     }
-
-    //We sort by alphabetical order
+    
+    // sets the state first for sorting
+    function getStateFirst(zone) {
+      var stateZone = zone.toUpperCase().split(", ") // ignore upper and lowercase
+      return stateZone.reverse().join(" ") // place state first for value
+    }
+    //We sort by alphabetical order using the state first and then the region/zone/city
     let optionsSorted = options.sort(function (a, b) {
-      var nameA = a.value.toUpperCase(); // ignore upper and lowercase
-      var nameB = b.value.toUpperCase(); // ignore upper and lowercase
+      var nameA = getStateFirst(a.value); 
+      var nameB = getStateFirst(b.value);
       if (nameA < nameB) {
         return -1;
       }
